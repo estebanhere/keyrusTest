@@ -1,0 +1,27 @@
+*{
+	box-sizing: border-box;
+	margin:0;
+	padding:0;
+}
+
+header>h1{
+	text-align:center;
+	color:white;
+}
+
+header{
+	background:url(https://68.media.tumblr.com/f648131a30d80d22fc36ec71daad9a07/tumblr_nftns69sXt1r7ealro3_500.jpg) no-repeat;
+	height:140px;
+	background-size: cover;
+	padding:40px 0;
+}
+
+input{
+	margin:10px auto;
+}
+
+.container{
+	padding:50px 25px;
+	width:80%;
+	margin:auto;
+}

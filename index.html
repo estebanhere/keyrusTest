@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Form Keyrus</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+	
+	
+	<div id="success" class="alert alert-success" role="alert">
+  <p>Voce foi logado com sucesso</p>
+</div>
+<div id="bad" class="alert alert-danger" role="alert">
+	<p>Digite seu email e senha</p>
+  
+</div>
+
+	<section class="row container p-3 my-3 border">
+		<form class="col-md-9 col-sm-12">
+			<label for="email">Email </label>
+			<input type="email" id="name" class="form-control" placeholder="Email">
+
+			<label for="password">Senha </label>
+			<input type="password" id="senha" class="form-control" placeholder="Senha">
+
+			<input id="btn" type="button" class="btn btn-primary" value="Entrar" onclick="UserAction()">
+			<div class="form-check">
+			<input type="checkbox" class="form-check-input" id="exampleCheck1">
+			<label class="form-check-label" for="exampleCheck1">Mantenha-me conectado</label>
+  </div>
+		</form>
+
+
+	</section>
+	
+	<section class="row container">
+	<p>Precisa de uma conta? <a target="_blank" href="https://www.keyrus.com/co/"> Inscrever-se </a> </p><br>
+	<p>Esqueseu sua senha? <a target="_blank" href="https://www.keyrus.com/co/contacta-con-nosotros/"> clique aqui.	</a></p>
+	</section>
+	
+	<section class="row container">
+		<p id="keyrus">Keyrus<p>
+	</section>
+	
+	<script>
+
+
+  
+  function UserAction() 
+  {
+    var xhttp = new XMLHttpRequest();
+	var xhttp2 = new XMLHttpRequest();
+	var xhttp3 = new XMLHttpRequest();
+	
+    xhttp.onreadystatechange = function() {
+         if (this.readyState == 4 && this.status == 200) 
+		 {
+             //console.log(this.responseText);
+			var obj=jQuery.parseJSON( this.responseText );
+			
+			
+			$.each(obj.results , function(key , value)
+			{ 
+				console.log(value.name);
+				console.log(value.hair_color);
+				console.log(value.skin_color);
+				console.log(value.gender);
+				homeWorld=value.homeworld;
+				films=value.films;
+				
+					
+					
+					xhttp2.onreadystatechange = function() 
+					{
+						
+						if (this.readyState == 4 && this.status == 200) 
+						{		
+							var objH=jQuery.parseJSON( this.responseText );
+							console.log(objH.name);
+							console.log(objH.terrain);
+							console.log(objH.gravity);
+							console.log(objH.climate);
+							console.log(objH.population);
+						}
+						
+					};
+					xhttp2.open("GET", homeWorld, true);
+					xhttp2.setRequestHeader("Content-type", "application/json");
+					xhttp2.send("Your JSON Data Here");
+	
+	
+				//$.each(value.films , function(k , v ){ 
+					
+					xhttp3.onreadystatechange = function() 
+						{
+							
+							if (this.readyState == 4 && this.status == 200) 
+							{		
+								var objF=jQuery.parseJSON( this.responseText );
+								console.log(objF.title);
+								console.log(objF.episode_id);
+								console.log(objF.opening_crawl);
+								console.log(objF.director);
+								//console.log(objH.population);
+							}
+							
+						};
+						xhttp3.open("GET", films[0], true);
+						xhttp3.setRequestHeader("Content-type", "application/json");
+						xhttp3.send("Your JSON Data Here");
+				 
+				
+				//});        
+
+			});
+			
+			 
+         }
+    };
+    xhttp.open("GET", "https://swapi.co/api/people/", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    xhttp.send("Your JSON Data Here");
+	
+	
+	
+}
+  
+
+	
+	</script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+	 crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+	 crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
+	
+	<script>
+	 $(document).ready(function() 
+	{
+		$("#bad").hide();
+		$("#success").hide();
+	
+		$("#btn").click(function()
+		{
+		  var email = $("#email").val();
+		  var senha = $("#senha").val();
+
+		  
+		  
+		  if (email == "" || senha == "")
+		  {				
+			$('#bad').show();
+			$('#success').hide();
+		  }
+		  else
+		  {
+			$('#success').show();
+			$('#bad').hide();
+			
+		  }    
+		})
+  });
+  </script>
+	
+</body>
+
+</html>
